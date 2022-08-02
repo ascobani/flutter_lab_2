@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
-Color color = Colors.blue;
+Color color = Colors.amberAccent;
 
 class MyWidget extends StatefulWidget {
+  const MyWidget({super.key});
+
   @override
   State<MyWidget> createState() => _MyWidgetState();
 }
@@ -17,11 +19,13 @@ class _MyWidgetState extends State<MyWidget> {
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter App',
-      home: MyHomePage(),
+      home: const MyHomePage(),
       theme: ThemeData(
         appBarTheme: AppBarTheme(
           color: color,
@@ -32,24 +36,26 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatelessWidget {
+  const MyHomePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Flutter App'),
+        title: const Text('Flutter App'),
       ),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          Container(
-            width: double.infinity,
-            child: Card(
-              child: Text('CHART!'),
-              color: color,
-              elevation: 5,
-            ),
+          Card(
+            color: color,
+            elevation: 5,
+            child: const Text('CHART!'),
           ),
           Card(
-            child: Text('List of Transaction'),
+            color: color,
+            child: const Text('List of Transaction'),
           ),
         ],
       ),
