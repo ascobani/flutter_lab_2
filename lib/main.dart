@@ -1,22 +1,10 @@
 import 'package:flutter/material.dart';
 
+import './transaction.dart';
+
 void main() => runApp(const MyApp());
 
 Color color = Colors.amberAccent;
-
-class MyWidget extends StatefulWidget {
-  const MyWidget({super.key});
-
-  @override
-  State<MyWidget> createState() => _MyWidgetState();
-}
-
-class _MyWidgetState extends State<MyWidget> {
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
-}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -28,16 +16,36 @@ class MyApp extends StatelessWidget {
       home: const MyHomePage(),
       theme: ThemeData(
         appBarTheme: AppBarTheme(
-          color: color,
+          color: Colors.amber,
         ),
       ),
     );
   }
 }
 
-class MyHomePage extends StatelessWidget {
+final List<Transaction> transaction = [
+  Transaction(
+    id: 't1',
+    title: 'New Shoes',
+    amount: 69.99,
+    date: DateTime.now(),
+  ),
+  Transaction(
+    id: 't2',
+    title: 'New Phone',
+    amount: 1099,
+    date: DateTime.now(),
+  ),
+];
+
+class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
 
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,9 +61,43 @@ class MyHomePage extends StatelessWidget {
             elevation: 5,
             child: const Text('CHART!'),
           ),
-          Card(
-            color: color,
-            child: const Text('List of Transaction'),
+          Column(
+            children: transaction.map((transaction) {
+              return Card(
+                child: Row(
+                  children: <Widget>[
+                    Container(
+                      margin: const EdgeInsets.symmetric(
+                        vertical: 10,
+                        horizontal: 15,
+                      ),
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: color,
+                          width: 2,
+                        ),
+                      ),
+                      padding: const EdgeInsets.all(10),
+                      child: Text(
+                        transaction.amount.toString(),
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w200,
+                          fontSize: 20,
+                        ),
+                      ),
+                    ),
+                    Column(
+                      children: <Widget>[
+                        Text(transaction.title),
+                        Text(
+                          transaction.date.toString(),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              );
+            }).toList(),
           ),
         ],
       ),
