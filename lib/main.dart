@@ -40,21 +40,23 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: const Text('Flutter App'),
       ),
-      body: Column(
-          // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            SizedBox(
-              width: double.infinity,
-              child: Card(
-                color: color,
-                elevation: 5,
-                child: const Text('CHART!'),
+      body: SingleChildScrollView(
+        child: Column(
+            // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              SizedBox(
+                width: double.infinity,
+                child: Card(
+                  color: color,
+                  elevation: 5,
+                  child: const Text('CHART!'),
+                ),
               ),
-            ),
-            UserTransactions()
-          ],
-        ),
+              const UserTransactions()
+            ],
+          ),
+      ),
       );
   }
 }

@@ -11,7 +11,7 @@ class TransactionList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 604,
+      height: 600,
       child: SingleChildScrollView(
         child: Column(
           children: transactions.map(
