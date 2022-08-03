@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import './transaction.dart';
+
 
 void main() => runApp(const MyApp());
 
@@ -23,21 +23,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-final List<Transaction> transaction = [
-  Transaction(
-    id: 't1',
-    title: 'New Shoes',
-    amount: 69.99,
-    date: DateTime.now(),
-  ),
-  Transaction(
-    id: 't2',
-    title: 'New Phone',
-    amount: 1099,
-    date: DateTime.now(),
-  ),
-];
-
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
 
@@ -46,6 +31,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  bool? get kDebugMode => null;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,66 +40,18 @@ class _MyHomePageState extends State<MyHomePage> {
         title: const Text('Flutter App'),
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          Card(
-            color: color,
-            elevation: 5,
-            child: const Text('CHART!'),
+          SizedBox(
+            width: double.infinity,
+            child: Card(
+              color: color,
+              elevation: 5,
+              child: const Text('CHART!'),
+            ),
           ),
-          Column(
-            children: transaction.map((transaction) {
-              getColor() {
-                if (transaction.amount >= 1000) {
-                  return Colors.green;
-                } else if (transaction.amount >= 750) {
-                  return Colors.yellow;
-                } else if (transaction.amount >= 500) {
-                  return Colors.yellow;
-                } else if (transaction.amount >= 250) {
-                  return Colors.yellow;
-                } else if (transaction.amount >= 0) {
-                  return Colors.yellow;
-                }
-              }
-
-              return Card(
-                child: Row(
-                  children: <Widget>[
-                    Container(
-                      margin: const EdgeInsets.symmetric(
-                        vertical: 10,
-                        horizontal: 15,
-                      ),
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: getColor(),
-                          width: 2,
-                        ),
-                      ),
-                      padding: const EdgeInsets.all(10),
-                      child: Text(
-                        transaction.amount.toString(),
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w200,
-                          fontSize: 20,
-                        ),
-                      ),
-                    ),
-                    Column(
-                      children: <Widget>[
-                        Text(transaction.title),
-                        Text(
-                          transaction.date.toString(),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              );
-            }).toList(),
-          ),
+          
         ],
       ),
     );
