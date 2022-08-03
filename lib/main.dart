@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter App',
       home: const MyHomePage(),
       theme: ThemeData(
-        appBarTheme: AppBarTheme(
+        appBarTheme: const AppBarTheme(
           color: Colors.amber,
         ),
       ),
@@ -63,6 +63,20 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           Column(
             children: transaction.map((transaction) {
+              getColor() {
+                if (transaction.amount >= 1000) {
+                  return Colors.green;
+                } else if (transaction.amount >= 750) {
+                  return Colors.yellow;
+                } else if (transaction.amount >= 500) {
+                  return Colors.yellow;
+                } else if (transaction.amount >= 250) {
+                  return Colors.yellow;
+                } else if (transaction.amount >= 0) {
+                  return Colors.yellow;
+                }
+              }
+
               return Card(
                 child: Row(
                   children: <Widget>[
@@ -73,7 +87,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                       decoration: BoxDecoration(
                         border: Border.all(
-                          color: color,
+                          color: getColor(),
                           width: 2,
                         ),
                       ),
