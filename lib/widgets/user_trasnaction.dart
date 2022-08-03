@@ -5,7 +5,7 @@ import './new_transaction.dart';
 import '../models/transaction.dart';
 
 class UserTransactions extends StatefulWidget {
-
+  const UserTransactions({super.key});
 
   @override
   State<UserTransactions> createState() => _UserTransactionsState();
@@ -26,11 +26,26 @@ class _UserTransactionsState extends State<UserTransactions> {
       date: DateTime.now(),
     ),
   ];
+
+  void _addNewTransaction(String transactionTitle, double transactionAmount) {
+    final newTransaction = Transaction(
+      id: DateTime.now.toString(),
+      title: transactionTitle,
+      amount: transactionAmount,
+      date: DateTime.now(),
+    );
+    setState(
+      () {
+        _userTransactions.add(newTransaction);
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        NewTransaction(),
+        NewTransaction(_addNewTransaction),
         TransactionList(_userTransactions),
       ],
     );

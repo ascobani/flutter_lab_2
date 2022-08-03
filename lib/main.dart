@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import './widgets/user_trasnaction.dart';
 
 
 
@@ -40,20 +41,20 @@ class _MyHomePageState extends State<MyHomePage> {
         title: const Text('Flutter App'),
       ),
       body: Column(
-        // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          SizedBox(
-            width: double.infinity,
-            child: Card(
-              color: color,
-              elevation: 5,
-              child: const Text('CHART!'),
+          // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            SizedBox(
+              width: double.infinity,
+              child: Card(
+                color: color,
+                elevation: 5,
+                child: const Text('CHART!'),
+              ),
             ),
-          ),
-          
-        ],
-      ),
-    );
+            UserTransactions()
+          ],
+        ),
+      );
   }
 }

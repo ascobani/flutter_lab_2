@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 
 class NewTransaction extends StatelessWidget {
+  final Function addTransaction;
   final titleController = TextEditingController();
   final amountController = TextEditingController();
+
+  NewTransaction(this.addTransaction, {super.key});
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -22,10 +26,10 @@ class NewTransaction extends StatelessWidget {
             ),
             IconButton(
               onPressed: () {
-                // ignore: avoid_print
-                print(titleController.text);
-                // ignore: avoid_print
-                print(amountController.text);
+                addTransaction(
+                  titleController.text,
+                  double.parse(amountController.text),
+                );
               },
               icon: const Icon(Icons.save_alt),
             ),
