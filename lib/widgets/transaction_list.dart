@@ -11,7 +11,7 @@ class TransactionList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 554,
+      height: 709,
       child: ListView.builder(
         itemBuilder: (ctx, index) {
           getColor() {
@@ -23,10 +23,8 @@ class TransactionList extends StatelessWidget {
               return Colors.yellow;
             } else if (transactions[index].amount >= 250) {
               return Colors.greenAccent;
-            } else if (transactions[index].amount >= 0) {
-              return Colors.green;
             } else {
-              return Colors.black;
+              return Colors.green;
             }
           }
 

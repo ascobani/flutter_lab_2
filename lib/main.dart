@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 
 import './widgets/new_transaction.dart';
-import './widgets/user_trasnaction.dart';
 import './widgets/transaction_list.dart';
 import './models/transaction.dart';
 
 void main() => runApp(const MyApp());
-
-Color color = const Color.fromARGB(255, 34, 34, 34);
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -15,27 +12,22 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter App',
+      title: 'Personal Expenses',
       home: MyHomePage(),
       theme: ThemeData(
-        appBarTheme: AppBarTheme(
-          color: color,
-        ),
-        scaffoldBackgroundColor: const Color.fromARGB(255, 82, 82, 82),
+        primarySwatch: Colors.purple,
+        accentColor: Colors.amber,
       ),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  
-
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  
   final List<Transaction> _userTransactions = [
     Transaction(
       id: 't1',
@@ -65,11 +57,11 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-
   void startAddNewTransaction(BuildContext ctx) {
     showModalBottomSheet(
       context: ctx,
-      builder: (_) {return NewTransaction(_addNewTransaction);
+      builder: (_) {
+        return NewTransaction(_addNewTransaction);
       },
     );
   }
@@ -78,7 +70,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Flutter App'),
+        title: const Text('Personal Expenses'),
         actions: <Widget>[
           IconButton(
             onPressed: () => startAddNewTransaction(context),
@@ -87,7 +79,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
       bottomNavigationBar: BottomAppBar(
-        color: color,
+        color: Theme.of(context).primaryColor,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -110,7 +102,7 @@ class _MyHomePageState extends State<MyHomePage> {
             SizedBox(
               width: double.infinity,
               child: Card(
-                color: color,
+                color: Theme.of(context).primaryColor,
                 elevation: 5,
                 child: const Text(
                   'CHART!',
