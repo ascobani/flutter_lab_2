@@ -13,23 +13,47 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Personal Expenses',
-      home: MyHomePage(),
+      home: const MyHomePage(),
       theme: ThemeData(
         fontFamily: 'Quicksand',
+        textTheme: ThemeData.light().textTheme.copyWith(
+              titleLarge: const TextStyle(
+                  fontFamily: 'Opensans',
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18),
+              titleMedium: const TextStyle(
+                  fontFamily: 'Opensans',
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18),
+              titleSmall: const TextStyle(
+                  fontFamily: 'Opensans',
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18),
+            ),
         primarySwatch: Colors.purple,
+        // ignore: deprecated_member_use
         accentColor: Colors.amber,
+        appBarTheme: const AppBarTheme(
+          toolbarTextStyle: TextStyle(
+            fontFamily: 'OpenSans',
+            fontSize: 30,
+          ),
+        ),
       ),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key});
+
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> _userTransactions = [
+    /*
     Transaction(
       id: 't1',
       title: 'New Socks',
@@ -42,6 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
       amount: 1127.67,
       date: DateTime.now(),
     ),
+    */
   ];
 
   void _addNewTransaction(String transactionTitle, double transactionAmount) {
