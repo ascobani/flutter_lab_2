@@ -5,15 +5,17 @@ import '../models/transaction.dart';
 
 class TransactionList extends StatelessWidget {
   final List<Transaction> transactions;
+  final Function _deleteTransaction;
 
   const TransactionList(
     this.transactions,
+    this._deleteTransaction, {super.key}
   );
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 709,
+      height: 563,
       child: transactions.isEmpty
           ? Column(
               children: <Widget>[
@@ -50,47 +52,39 @@ class TransactionList extends StatelessWidget {
                 }
 
                 return Card(
-                  child: Row(
-                    children: <Widget>[
-                      Container(
-                        margin: const EdgeInsets.symmetric(
-                          vertical: 10,
-                          horizontal: 15,
-                        ),
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: getColor(), //can't figure it out
-                            //color: Colors.black(),
-                            width: 2,
-                          ),
-                        ),
-                        padding: const EdgeInsets.all(10),
-                        child: Text(
-                          '₺${transactions[index].amount.toStringAsFixed(2)}',
-                          style: const TextStyle(
-                            fontWeight: FontWeight.w200,
-                            fontSize: 20,
+                  elevation: 5,
+                  margin: const EdgeInsets.symmetric(
+                    vertical: 8,
+                    horizontal: 5,
+                  ),
+                  child: ListTile(
+                    leading: CircleAvatar(
+                      radius: 30,
+                      backgroundColor: getColor(),
+                      child: Padding(
+                        padding: const EdgeInsets.all(6),
+                        child: FittedBox(
+                          child: Text(
+                            '₺${transactions[index].amount}',
+                            style: const TextStyle(color: Colors.white),
                           ),
                         ),
                       ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            transactions[index].title,
-                            style: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            DateFormat.yMMMd().format(transactions[index].date),
-                            style: const TextStyle(
-                                color: Colors.grey, fontSize: 13),
-                          ),
-                        ],
+                    ),
+                    title: Text(
+                      transactions[index].title,
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
+                    subtitle: Text(
+                      DateFormat.yMMMd().format(transactions[index].date),
+                    ),
+                    trailing: IconButton(
+                      onPressed: () => _deleteTransaction(
+                        transactions[index].id,
                       ),
-                    ],
+                      icon: const Icon(Icons.delete_forever),
+                      color: Theme.of(context).errorColor,
+                    ),
                   ),
                 );
               },

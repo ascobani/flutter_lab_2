@@ -34,6 +34,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.purple,
         // ignore: deprecated_member_use
         accentColor: Colors.amber,
+        errorColor: Colors.red,
         appBarTheme: const AppBarTheme(
           toolbarTextStyle: TextStyle(
             fontFamily: 'OpenSans',
@@ -54,7 +55,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> _userTransactions = [
-    /*
+    /* 
     Transaction(
       id: 't1',
       title: 'New Socks',
@@ -75,19 +76,20 @@ class _MyHomePageState extends State<MyHomePage> {
       (transaction) {
         return transaction.date.isAfter(
           DateTime.now().subtract(
-            Duration(days: 7),
+            const Duration(days: 7),
           ),
         );
       },
     ).toList();
   }
 
-  void _addNewTransaction(String transactionTitle, double transactionAmount) {
+  void _addNewTransaction(
+      String transactionTitle, double transactionAmount, DateTime datePicker) {
     final newTransaction = Transaction(
       id: DateTime.now.toString(),
       title: transactionTitle,
       amount: transactionAmount,
-      date: DateTime.now(),
+      date: datePicker,
     );
     setState(
       () {
@@ -107,6 +109,13 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: no_leading_underscores_for_local_identifiers
+    void _deleteTransaction(String id) {
+      setState(() {
+        _userTransactions.removeWhere((transaction) => transaction.id == id);
+      });
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Personal Expenses'),
@@ -139,7 +148,10 @@ class _MyHomePageState extends State<MyHomePage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Chart(_recentTransactions),
-            TransactionList(_userTransactions)
+            TransactionList(
+              _userTransactions,
+              _deleteTransaction,
+            )
           ],
         ),
       ),

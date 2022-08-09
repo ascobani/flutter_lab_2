@@ -7,8 +7,8 @@ import '../models/transaction.dart';
 class Chart extends StatelessWidget {
   final List<Transaction> recentTransactions;
 
-  Chart(
-    this.recentTransactions,
+  const Chart(
+    this.recentTransactions, {super.key}
   );
 
   List<Map<String, Object>> get groupedTransactionsValues {
@@ -27,17 +27,13 @@ class Chart extends StatelessWidget {
           }
         }
 
-        print(
-          DateFormat.E().format(weekDay),
-        );
-        print(totalSum);
 
         return {
           'day': DateFormat.E().format(weekDay).substring(0, 1),
           'amount': totalSum,
         };
       },
-    );
+    ).reversed.toList();
   }
 
   double get totalSpending {
@@ -48,15 +44,16 @@ class Chart extends StatelessWidget {
       },
     );
   }
+  
+ 
 
   @override
   Widget build(BuildContext context) {
-    print(groupedTransactionsValues);
     return Card(
       elevation: 6,
-      margin: EdgeInsets.all(12),
+      margin: const EdgeInsets.all(12),
       child:Padding(
-        padding: EdgeInsets.all(19),
+        padding: const EdgeInsets.all(19),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: groupedTransactionsValues.map(
@@ -68,7 +65,7 @@ class Chart extends StatelessWidget {
                   data['amount'] as double,
                   totalSpending == 0.0
                       ? 0.0
-                      : (data['amount'] as double) / totalSpending,
+                      : (data['amount'] as double) /  totalSpending ,
                 ),
               );
             },
