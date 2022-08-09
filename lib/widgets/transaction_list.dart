@@ -6,7 +6,9 @@ import '../models/transaction.dart';
 class TransactionList extends StatelessWidget {
   final List<Transaction> transactions;
 
-  const TransactionList(this.transactions, {super.key});
+  const TransactionList(
+    this.transactions,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +84,7 @@ class TransactionList extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            DateFormat.yMd().format(transactions[index].date),
+                            DateFormat.yMMMd().format(transactions[index].date),
                             style: const TextStyle(
                                 color: Colors.grey, fontSize: 13),
                           ),
