@@ -40,12 +40,14 @@ class Chart extends StatelessWidget {
     );
   }
 
-double get totalSpending {
-  return groupedTransactionsValues.fold(0.0, (sum, item ) {
-    return sum + (item['amount'] as double);
-  },);
-}
-
+  double get totalSpending {
+    return groupedTransactionsValues.fold(
+      0.0,
+      (sum, item) {
+        return sum + (item['amount'] as double);
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +58,11 @@ double get totalSpending {
       child: Row(
         children: groupedTransactionsValues.map(
           (data) {
-            return ChartBar(data['day'] as String, data['amount'] as double, (data['amount'] as double) / totalSpending);
+            return ChartBar(
+              data['day'] as String,
+              data['amount'] as double,
+             totalSpending == 0.0 ? 0.0: (data['amount'] as double) / totalSpending,
+            );
           },
         ).toList(),
       ),
