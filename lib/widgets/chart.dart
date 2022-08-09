@@ -54,19 +54,26 @@ class Chart extends StatelessWidget {
     print(groupedTransactionsValues);
     return Card(
       elevation: 6,
-      margin: EdgeInsets.all(66),
-      child:Row(
-        children: groupedTransactionsValues.map(
-          (data) {
-            return ChartBar(
-              data['day'] as String,
-              data['amount'] as double,
-              totalSpending == 0.0
-                  ? 0.0
-                  : (data['amount'] as double) / totalSpending,
-            );
-          },
-        ).toList(),
+      margin: EdgeInsets.all(12),
+      child:Padding(
+        padding: EdgeInsets.all(19),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: groupedTransactionsValues.map(
+            (data) {
+              return Flexible(
+                fit: FlexFit.tight, 
+                child: ChartBar(
+                  data['day'] as String,
+                  data['amount'] as double,
+                  totalSpending == 0.0
+                      ? 0.0
+                      : (data['amount'] as double) / totalSpending,
+                ),
+              );
+            },
+          ).toList(),
+        ),
       ),
     );
   }
