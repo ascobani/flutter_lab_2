@@ -4,9 +4,7 @@ import 'package:intl/intl.dart';
 class NewTransaction extends StatefulWidget {
   final Function addTransaction;
 
-  const NewTransaction(
-    this.addTransaction, {super.key}
-  );
+  const NewTransaction(this.addTransaction, {super.key});
 
   @override
   State<NewTransaction> createState() => _NewTransactionState();
@@ -72,7 +70,7 @@ class _NewTransactionState extends State<NewTransaction> {
               onSubmitted: (_) => _submitData(),
             ),
             SizedBox(
-              height: 73,
+              height: MediaQuery.of(context).size.height * 0.0688,
               child: Row(
                 children: <Widget>[
                   Expanded(
