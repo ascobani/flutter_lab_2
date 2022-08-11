@@ -3,15 +3,18 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
+// ignore: must_be_immutable
 class AdaptiveButton extends StatelessWidget {
-  var cupertinoIcons;
-  var materialIcons;
+  // ignore: prefer_typing_uninitialized_variables
+  final _cupertinoIcons;
+  // ignore: prefer_typing_uninitialized_variables
+  final _materialIcons;
   VoidCallback handler;
 
   AdaptiveButton(
-    this.cupertinoIcons,
-    this.materialIcons,
-    this.handler,
+    this._cupertinoIcons,
+    this._materialIcons,
+    this.handler, {super.key}
   );
 
   @override
@@ -19,10 +22,10 @@ class AdaptiveButton extends StatelessWidget {
     return Platform.isIOS
         ? CupertinoButton.filled(
             onPressed: handler,
-            child: Icon(cupertinoIcons),
+            child: Icon(_cupertinoIcons),
           )
         : IconButton(
-            icon: Icon(materialIcons),
+            icon: Icon(_materialIcons),
             onPressed: handler,
           );
   }

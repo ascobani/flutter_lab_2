@@ -135,7 +135,7 @@ class _MyHomePageState extends State<MyHomePage> {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 GestureDetector(
-                  child: Icon(CupertinoIcons.add),
+                  child: const Icon(CupertinoIcons.add),
                   onTap: () => startAddNewTransaction(context),
                 )
               ],
@@ -181,12 +181,13 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
 
-    return Platform.isIOS
-        ? CupertinoPageScaffold(
-            child: pageBody,
+    if (Platform.isIOS) {
+      return CupertinoPageScaffold(
             navigationBar: appBar,
-          )
-        : Scaffold(
+            child: pageBody,
+          );
+    } else {
+      return Scaffold(
             appBar: appBar,
             bottomNavigationBar: BottomAppBar(
               color: Theme.of(context).primaryColor,
@@ -211,5 +212,6 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
             body: pageBody);
+    }
   }
 }

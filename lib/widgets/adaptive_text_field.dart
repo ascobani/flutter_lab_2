@@ -3,16 +3,18 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
+// ignore: must_be_immutable
 class AdaptiveTextField extends StatelessWidget {
 
   final String text;
+  // ignore: prefer_typing_uninitialized_variables
   final controller;
   VoidCallback handler;
 
   AdaptiveTextField(
     this.text,
     this.controller,
-    this.handler,
+    this.handler, {super.key}
   );
 
   @override
