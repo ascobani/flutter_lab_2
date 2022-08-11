@@ -9,12 +9,15 @@ class AdaptiveTextField extends StatelessWidget {
   final String text;
   // ignore: prefer_typing_uninitialized_variables
   final controller;
+  // ignore: prefer_typing_uninitialized_variables
+  final keyboardTypeSellecter;
   VoidCallback handler;
 
   AdaptiveTextField(
     this.text,
     this.controller,
-    this.handler, {super.key}
+    this.handler,
+    this.keyboardTypeSellecter, {super.key}
   );
 
   @override
@@ -23,13 +26,13 @@ class AdaptiveTextField extends StatelessWidget {
         ? CupertinoTextField(
             placeholder: text,
             controller: controller,
-            keyboardType: TextInputType.number,
+            keyboardType: keyboardTypeSellecter,
             onSubmitted: (_) => handler(),
           )
         : TextField(
             decoration: InputDecoration(labelText: text),
             controller: controller,
-            keyboardType: TextInputType.number,
+            keyboardType: keyboardTypeSellecter,
             onSubmitted: (_) => handler(),
           );
   }
