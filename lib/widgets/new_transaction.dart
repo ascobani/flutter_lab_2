@@ -1,8 +1,9 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/cupertino.dart';
+
+import './adaptive_button.dart';
+import './adaptive_text_field.dart';
 
 class NewTransaction extends StatefulWidget {
   final Function addTransaction;
@@ -35,27 +36,21 @@ class _NewTransactionState extends State<NewTransaction> {
   }
 
   void _presentDatePicker() {
-    Platform.isIOS
-        ? CupertinoDatePicker(
-            mode: CupertinoDatePickerMode.date,
-            onDateTimeChanged: (value) {},
-            initialDateTime: DateTime.now(),
-          )
-        : showDatePicker(
-            context: context,
-            initialDate: DateTime.now(),
-            firstDate: DateTime(1),
-            lastDate: DateTime.now(),
-          ).then(
-            (pickedDate) {
-              if (pickedDate == null) {
-                return;
-              }
-              setState(() {
-                _sellectedDate = pickedDate;
-              });
-            },
-          );
+    showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(1),
+      lastDate: DateTime.now(),
+    ).then(
+      (pickedDate) {
+        if (pickedDate == null) {
+          return;
+        }
+        setState(() {
+          _sellectedDate = pickedDate;
+        });
+      },
+    );
   }
 
   @override
@@ -73,33 +68,19 @@ class _NewTransactionState extends State<NewTransaction> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: <Widget>[
-              Platform.isIOS
-                  ? CupertinoTextField(
-                      placeholder: 'Title',
-                      controller: _titleController,
-                      onSubmitted: (_) => _submitData(),
-                    )
-                  : TextField(
-                      decoration: const InputDecoration(labelText: 'Title'),
-                      controller: _titleController,
-                      onSubmitted: (_) => _submitData(),
-                    ),
+              AdaptiveTextField(
+                'Title',
+                _titleController,
+                _submitData,
+              ),
               const SizedBox(
                 height: 10,
               ),
-              Platform.isIOS
-                  ? CupertinoTextField(
-                      placeholder: 'Amount',
-                      controller: _amountController,
-                      keyboardType: TextInputType.number,
-                      onSubmitted: (_) => _submitData(),
-                    )
-                  : TextField(
-                      decoration: const InputDecoration(labelText: 'Amount'),
-                      controller: _amountController,
-                      keyboardType: TextInputType.number,
-                      onSubmitted: (_) => _submitData(),
-                    ),
+              AdaptiveTextField(
+                'Amount',
+                _amountController,
+                _submitData,
+              ),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.0688,
                 child: Row(
@@ -111,29 +92,19 @@ class _NewTransactionState extends State<NewTransaction> {
                             : 'Picked Date:${DateFormat.yMMMd().format(_sellectedDate!)}',
                       ),
                     ),
-                    Platform.isIOS
-                        ? CupertinoButton.filled(
-                            child: Icon(CupertinoIcons.calendar_today),
-                            onPressed: _presentDatePicker,
-                          )
-                        : IconButton(
-                            onPressed: _presentDatePicker,
-                            icon: const Icon(
-                              Icons.calendar_month,
-                            ),
-                          ),
+                    AdaptiveButton(
+                      CupertinoIcons.calendar,
+                      Icons.calendar_month,
+                      _presentDatePicker,
+                    ),
                   ],
                 ),
               ),
-              Platform.isIOS
-                  ? CupertinoButton.filled(
-                      child: Icon(CupertinoIcons.floppy_disk),
-                      onPressed: _submitData,
-                    )
-                  : IconButton(
-                      onPressed: _submitData,
-                      icon: const Icon(Icons.save_alt),
-                    ),
+              AdaptiveButton(
+                CupertinoIcons.floppy_disk,
+                Icons.save_alt,
+                _submitData,
+              ),
             ],
           ),
         ),
