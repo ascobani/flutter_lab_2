@@ -35,23 +35,7 @@ class _NewTransactionState extends State<NewTransaction> {
     Navigator.of(context).pop();
   }
 
-  void _presentDatePicker() {
-    showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(1),
-      lastDate: DateTime.now(),
-    ).then(
-      (pickedDate) {
-        if (pickedDate == null) {
-          return;
-        }
-        setState(() {
-          _sellectedDate = pickedDate;
-        });
-      },
-    );
-  }
+  
 
   @override
   Widget build(BuildContext context) {
