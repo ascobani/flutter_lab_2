@@ -1,11 +1,22 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import './widgets/new_transaction.dart';
 import './widgets/transaction_list.dart';
 import './widgets/chart.dart';
 import './models/transaction.dart';
 
-void main() => runApp(const MyApp());
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
+  runApp(const MyApp());
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -109,6 +120,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context);
     // ignore: no_leading_underscores_for_local_identifiers
     void _deleteTransaction(String id) {
       setState(() {
@@ -116,52 +128,49 @@ class _MyHomePageState extends State<MyHomePage> {
       });
     }
 
-    final appBar = AppBar(
-      title: const Text('Personal Expenses'),
-      actions: <Widget>[
-        IconButton(
-          onPressed: () => startAddNewTransaction(context),
-          icon: const Icon(Icons.add),
-        ),
-      ],
-    );
-    return Scaffold(
-      appBar: appBar,
-      bottomNavigationBar: BottomAppBar(
-        color: Theme.of(context).primaryColor,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            IconButton(
-              alignment: Alignment.center,
-              onPressed: (() => startAddNewTransaction(context)),
-              icon: const Icon(
-                Icons.add,
-                color: Colors.white,
-              ),
+    final dynamic appBar = Platform.isIOS
+        ? CupertinoNavigationBar(
+            middle: const Text('Personal Expenses'),
+            trailing: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                GestureDetector(
+                  child: Icon(CupertinoIcons.add),
+                  onTap: () => startAddNewTransaction(context),
+                )
+              ],
             ),
-          ],
-        ),
-      ),
-      body: SingleChildScrollView(
+          )
+        : AppBar(
+            title: const Text('Personal Expenses'),
+            actions: <Widget>[
+              IconButton(
+                onPressed: () => startAddNewTransaction(context),
+                icon: const Icon(Icons.add),
+              ),
+            ],
+          ) as PreferredSizeWidget;
+
+    final pageBody = SafeArea(
+      child: SingleChildScrollView(
         child: Column(
           // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             SizedBox(
-              height: (MediaQuery.of(context).size.height -
+              height: (mediaQuery.size.height -
                       appBar.preferredSize.height -
-                      MediaQuery.of(context).padding.top) *
-                  0.3385997,
+                      mediaQuery.padding.top) *
+                  0.3,
               child: Chart(
                 _recentTransactions,
               ),
             ),
             SizedBox(
-              height: (MediaQuery.of(context).size.height -
+              height: (mediaQuery.size.height -
                       appBar.preferredSize.height -
-                      MediaQuery.of(context).padding.top) *
-                  0.6,
+                      mediaQuery.padding.top) *
+                  0.7,
               child: TransactionList(
                 _userTransactions,
                 _deleteTransaction,
@@ -171,5 +180,36 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
     );
+
+    return Platform.isIOS
+        ? CupertinoPageScaffold(
+            child: pageBody,
+            navigationBar: appBar,
+          )
+        : Scaffold(
+            appBar: appBar,
+            bottomNavigationBar: BottomAppBar(
+              color: Theme.of(context).primaryColor,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Platform.isIOS
+                      ? const IconButton(
+                          onPressed: null,
+                          icon: Icon(Icons.abc),
+                          iconSize: 1,
+                        )
+                      : IconButton(
+                          alignment: Alignment.center,
+                          onPressed: (() => startAddNewTransaction(context)),
+                          icon: const Icon(
+                            Icons.add,
+                            color: Colors.white,
+                          ),
+                        ),
+                ],
+              ),
+            ),
+            body: pageBody);
   }
 }
