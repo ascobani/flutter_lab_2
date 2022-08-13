@@ -37,7 +37,6 @@ class _NewTransactionState extends State<NewTransaction> {
     Navigator.of(context).pop();
   }
 
-
   void showSheet(
     BuildContext context, {
     required Widget child,
@@ -108,21 +107,11 @@ class _NewTransactionState extends State<NewTransaction> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: <Widget>[
-              AdaptiveTextField(
-                'Title',
-                _titleController,
-                _submitData,
-                TextInputType.text
-              ),
+              AdaptiveTextField('Title', _titleController, _submitData, TextInputType.text),
               const SizedBox(
                 height: 10,
               ),
-              AdaptiveTextField(
-                'Amount',
-                _amountController,
-                _submitData,
-                TextInputType.number
-              ),
+              AdaptiveTextField('Amount', _amountController, _submitData, TextInputType.number),
               const SizedBox(
                 height: 10,
               ),
@@ -131,37 +120,37 @@ class _NewTransactionState extends State<NewTransaction> {
                     ? Row(
                         children: <Widget>[
                           Expanded(
-                      child:  Text(
-                            _sellectedDate == null
-                                ? 'No Date Sellected'
-                                : 'Picked Date:${DateFormat.yMMMd().format(_sellectedDate!)}',
+                            child: Text(
+                              _sellectedDate == null
+                                  ? 'No Date Sellected'
+                                  : 'Picked Date:${DateFormat.yMMMd().format(_sellectedDate!)}',
+                            ),
                           ),
-                    ),
                           CupertinoButton.filled(
                               onPressed: () => showSheet(context,
-                                  child: buildCupertinoDatePicker(),
-                                  onPressed: () => Navigator.pop(context)),
+                                  child: buildCupertinoDatePicker(), onPressed: () => Navigator.pop(context)),
                               child: const Icon(Icons.calendar_month)),
-                          
                         ],
                       )
                     : Row(
                         children: <Widget>[
                           Expanded(
-                      child:  Text(
-                            _sellectedDate == null
-                                ? 'No Date Sellected'
-                                : 'Picked Date:${DateFormat.yMMMd().format(_sellectedDate!)}',
+                            child: Text(
+                              _sellectedDate == null
+                                  ? 'No Date Sellected'
+                                  : 'Picked Date:${DateFormat.yMMMd().format(_sellectedDate!)}',
+                            ),
                           ),
-                    ),
                           IconButton(
                             onPressed: _presentDatePicker,
-                           icon: const Icon(Icons.calendar_month),
+                            icon: const Icon(Icons.calendar_month),
                           )
                         ],
                       ),
               ),
-              const SizedBox(height: 10,),
+              const SizedBox(
+                height: 10,
+              ),
               /*
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.0688,
